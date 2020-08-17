@@ -1,42 +1,52 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "elmage/textng-php",
     "type": "library",
-    "description": ":package_description",
+    "description": "An unofficial textng.xyz SMS API Wrapper for PHP",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "elmage",
+        "textng-php",
+        "textng",
+        "sms"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/elmage/textng-php",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
-            "role": "Developer"
+            "name": "Samuel Ogaba",
+            "email": "mails4mage@gmail.com",
+            "homepage": "https://github.com/elmage",
+            "role": "Maintainer"
         }
     ],
     "require": {
-        "php" : "~7.2"
+        "php" : "^7.4",
+        "guzzlehttp/guzzle": "^6.3",
+        "psr/http-message": "^1.0",
+        "psr/log": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit" : ">=8.0",
-        "squizlabs/php_codesniffer": "^3.0"
+        "squizlabs/php_codesniffer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpunit/phpunit": "^9.0",
+        "vimeo/psalm": "^3.11"
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "Elmage\\TextNg\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "Elmage\\TextNg\\Test\\": "tests"
         }
     },
     "scripts": {
-        "test": "phpunit",
         "check-style": "phpcs src tests",
-        "fix-style": "phpcbf src tests"
+        "fix-style": "phpcbf src tests",
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     },
     "extra": {
         "branch-alias": {
