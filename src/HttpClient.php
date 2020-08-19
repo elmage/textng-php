@@ -154,7 +154,8 @@ class HttpClient
         $options = array();
 
         if (count($params) > 0) {
-            $options[RequestOptions::JSON] = $params;
+            $options[RequestOptions::FORM_PARAMS] = $params;
+            $options[RequestOptions::VERIFY] = false;
             $body = json_encode($params);
         } else {
             $body = '';
@@ -162,8 +163,8 @@ class HttpClient
 
         $defaultHeaders = array(
             'User-Agent' => 'elmage/textng/php/'.Client::VERSION,
-            'Content-Type' => 'application/json',
-            'Accept' => 'text/plain, application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'text/plain, application/json', 'text/html',
         );
 
         $options[RequestOptions::HEADERS] = $defaultHeaders;

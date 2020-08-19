@@ -8,6 +8,7 @@ use Elmage\TextNg\Test\TestCase;
 use Elmage\TextNg\HttpClient;
 use Elmage\TextNg\Configuration;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\MockObject\MockObject;
 use GuzzleHttp\ClientInterface;
@@ -119,15 +120,15 @@ class HttpClientTest extends TestCase
         );
     }
 
-    private function isValidOptionsArray(array $headers = [], $json = true): Callback
+    private function isValidOptionsArray(array $headers = [], $form_params = true): Callback
     {
-        return $this->callback(function ($options) use ($headers, $json) {
+        return $this->callback(function ($options) use ($headers, $form_params) {
             $this->assertArrayHasKey('headers', $options);
             $this->assertArrayHasKey('User-Agent', $options['headers']);
             $this->assertArrayHasKey('Content-Type', $options['headers']);
 
-            if ($json) {
-                $this->assertArrayHasKey('json', $options);
+            if ($form_params) {
+                $this->assertArrayHasKey(RequestOptions::FORM_PARAMS, $options);
             }
 
             foreach ($headers as $header) {
