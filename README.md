@@ -1,12 +1,11 @@
 # TextNg PHP Library
 
-
+[![Latest Version on Packagist][ico-version-dev]][link-packagist]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
 
 This is an unofficial client library for the TextNg SMS API. We provide an intuitive, stable interface to integrate TextNG SMS into your PHP project.
 
@@ -87,12 +86,13 @@ If you discover any security related issues, please email mails4mage@gmail.com o
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/elmage/textng-php.svg?style=flat-square
+[ico-version]: https://poser.pugx.org/elmage/textng-php/version
+[ico-version-dev]: https://poser.pugx.org/elmage/textng-php/v/unstable
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://travis-ci.com/elmage/textng-php.svg?branch=master
-[ico-scrutinizer]: https://scrutinizer-ci.com/g/elmage/textng-php/badges/build.png?b=master
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/elmage/textng-php/badges/coverage.png?b=master
 [ico-code-quality]: https://scrutinizer-ci.com/g/elmage/textng-php/badges/quality-score.png?b=master
-[ico-downloads]: https://img.shields.io/packagist/dt/elmage/textng-php.svg?style=flat-square
+[ico-downloads]: https://poser.pugx.org/elmage/textng-php/d/total.svg
 
 [link-packagist]: https://packagist.org/packages/elmage/textng-php
 [link-travis]: https://travis-ci.org/elmage/textng-php
