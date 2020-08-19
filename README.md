@@ -90,7 +90,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/elmage/textng-php.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://travis-ci.com/elmage/textng-php.svg?branch=master
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/elmage/textng-php.svg?style=flat-square
+[ico-scrutinizer]: https://scrutinizer-ci.com/g/elmage/textng-php/badges/build.png?b=master
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/elmage/textng-php.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/elmage/textng-php.svg?style=flat-square
 
