@@ -5,17 +5,13 @@ build:
                 override: true
             tests:
                 override: [php-scrutinizer-run]
-
-filter:
-    excluded_paths: [tests/*]
-
 checks:
     php:
         remove_extra_empty_lines: true
         remove_php_closing_tag: true
         remove_trailing_whitespace: true
         fix_use_statements:
-            remove_unused: true
+            remove_unused: false
             preserve_multiple: false
             preserve_blanklines: true
             order_alphabetically: true
@@ -27,5 +23,5 @@ checks:
 
 tools:
     external_code_coverage:
-        timeout: 600
-        runs: 3
+        timeout: 2400
+        runs: 2

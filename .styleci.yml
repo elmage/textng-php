@@ -1,1 +1,28 @@
-preset: psr2
+risky: false
+
+version: 7
+
+preset: recommended
+
+tab-width: 4
+
+use-tabs: false
+
+enabled:
+    - long_array_syntax
+    - unalign_double_arrow
+
+disabled:
+    - align_double_arrow
+    - short_array_syntax
+
+finder:
+    exclude:
+        - "tests"
+        - "vendor"
+    name:
+        - "*.php"
+    path:
+        - "src/"
+    not-path:
+        - "libraries"
