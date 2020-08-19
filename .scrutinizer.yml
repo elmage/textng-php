@@ -6,6 +6,7 @@ build:
             tests:
                 override:
                     - php-scrutinizer-run
+
 checks:
     php:
         code_rating: true
