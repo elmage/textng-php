@@ -16,4 +16,8 @@ class Param
     const REFERENCE = 'reference';
     const REQ = 'req';
     const USED_ROUTE = 'used_route';
+
+    const CUSTOMER_NAME = 'customername';
+    const CUSTOMER_PHONE = 'customerphone';
+    const CATEGORY_ID = 'catid';
 }
