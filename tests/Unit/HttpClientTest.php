@@ -149,6 +149,4 @@ class HttpClientTest extends TestCase
             $this->transport
         );
     }
-
 }
-

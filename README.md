@@ -32,12 +32,12 @@ This is not intended to provide complete documentation of the API. For more deta
 **Get Unit Balance**
 
 ```php
-$currencies = $client->getBalance();
+$response = $client->getBalance();
 ```
 **Send SMS**
 
 ```php
-$currencies = $client->sendSMS($route, $phoneNumbers, $message, $bypassCode, $optionalParamsArray);
+$response = $client->sendSMS($route, $phoneNumbers, $message, $bypassCode, $optionalParamsArray);
 ```
 
 
@@ -48,16 +48,28 @@ $currencies = $client->sendSMS($route, $phoneNumbers, $message, $bypassCode, $op
 // and calls $client->sendSMS(..., [$phoneNumber], ...)
 // passing the supplied phone number as the single element in an array
 
-$currencies = $client->sendOTP($route = 3, $phoneNumber, $message, $bypassCode, $optionalParamsArray);
+$response = $client->sendOTP($route, $phoneNumber, $message, $bypassCode, $optionalParamsArray);
 ```
 
 **Get Delivery Report**
 
 ```php
-$currencies = $client->getDeliveryReport($reference, $req, $used_route);
+$response = $client->getDeliveryReport($reference, $req, $used_route);
 ```
-```$req``` can take one of the 3 values ```all```, ```dnd``` or ```success``` (as specified in the [API DOCs](https://textng.xyz/api)) 
+```$req``` can take one of the 3 values ```all```, ```dnd``` or ```success``` (as specified in the [API DOC](https://textng.xyz/api)) 
 
+**Create Customer**
+
+```php
+$response = $client->createCustomer($customerName, $customerPhone, $categoryID);
+```
+```$categoryID``` is the category url ID generated for each url link you create. (as specified in the [API DOC](https://textng.xyz/api/#addcustomer))
+
+**Remove Customer**
+
+```php
+$response = $client->removeCustomer($customerPhone, $categoryID);
+```
 
 ## Change log
 

@@ -109,6 +109,52 @@ class Client
         return $this->makeRequest('/pushsms/', 'post', $params);
     }
 
+    /**
+     * add customer to category list.
+     *
+     * @param string $customerName
+     * @param string $customerPhone
+     * @param $categoryID
+     *
+     * @return array
+     */
+    public function createCustomer(string $customerName, string $customerPhone, string $categoryID): array
+    {
+        $params = array(
+            Param::CUSTOMER_NAME => $customerName,
+            Param::CUSTOMER_PHONE => $customerPhone,
+            Param::CATEGORY_ID => $categoryID,
+        );
+
+        return $this->makeRequest('/addcustomer/', 'get', $params);
+    }
+
+    /**remove customer from category list
+     *
+     *
+     * @param string $customerPhone
+     * @param $categoryID
+     * @return array
+     */
+    public function removeCustomer(string $customerPhone, string $categoryID): array
+    {
+        $params = array(
+            Param::CUSTOMER_PHONE => $customerPhone,
+            Param::CATEGORY_ID => $categoryID,
+        );
+
+        return $this->makeRequest('/removecustomer/', 'get', $params);
+    }
+
+    /**
+     * Get delivery report for an SMS transaction.
+     *
+     * @param string $reference
+     * @param $req
+     * @param $used_route
+     *
+     * @return array
+     */
     public function getDeliveryReport(string $reference, $req, $used_route)
     {
         if (!in_array($used_route, Route::$routes)) {

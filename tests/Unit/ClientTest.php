@@ -52,10 +52,16 @@ class ClientTest extends TestCase
 
     public function testGetBalance()
     {
+        $resText = '{"D":{"details":[' .
+            '{"key":"TEST_KEY","unitsbalance":"20","time":"2000-01-01 01:10:15","status":"successful"}' .
+            ']}}';
+
         $this->http->expects($this->any())
             ->method('get')
             ->with('/smsbalance/', [Param::CHECK_BALANCE => 1])
-            ->willReturn($this->getMockResponse('{"D":{"details":[{"key":"TEST_KEY","unitsbalance":"20","time":"2000-01-01 01:10:15","status":"successful"}]}}'));
+            ->willReturn($this->getMockResponse(
+                $resText
+            ));
 
         $actual = $this->client->getBalance();
         $this->assertIsArray($actual, "Array expected, got " . gettype($actual));
@@ -69,7 +75,7 @@ class ClientTest extends TestCase
     }
 
     /**
-     * @dataProvider provideFortestSendSMS
+     * @dataProvider provideForTestSendSMS
      */
     public function testSendSMS(int $route, string $phone, string $message, string $sender, string $bypasscode)
     {
@@ -82,7 +88,9 @@ class ClientTest extends TestCase
                 Param::SENDER => $sender,
                 Param::BYPASSCODE => $bypasscode
             ])
-            ->willReturn($this->getMockResponse('5 units used|| Status:Successful|| Route:5|| Type:single number|| Reference:4567ygfrthyi'));
+            ->willReturn($this->getMockResponse(
+                '5 units used|| Status:Successful|| Route:5|| Type:single number|| Reference:4567ygfrthyi'
+            ));
 
         $actual = $this->client->sendOTP($route, $phone, $message, $bypasscode);
 
@@ -95,7 +103,7 @@ class ClientTest extends TestCase
         }
     }
 
-    public function provideFortestSendSMS(): array
+    public function provideForTestSendSMS(): array
     {
         return [
             //route phone     message          sender  bypasscode
@@ -105,6 +113,126 @@ class ClientTest extends TestCase
             [6, '0806754345', "Otp is 675543", "Test", "2345678909"],
         ];
     }
+
+
+    /**
+     * @dataProvider provideForTestCreateCustomer
+     */
+    public function testCreateCustomer(
+        string $customerName,
+        string $customerPhone,
+        string $categoryID,
+        string $response,
+        array $keys = []
+    )
+    {
+        $this->http->expects($this->any())
+            ->method('get')
+            ->with('/addcustomer/', [
+                Param::CUSTOMER_NAME => $customerName,
+                Param::CUSTOMER_PHONE => $customerPhone,
+                Param::CATEGORY_ID => $categoryID,
+            ])
+            ->willReturn($this->getMockResponse($response));
+
+        $actual = $this->client->createCustomer($customerName, $customerPhone, $categoryID);
+        $this->assertIsArray($actual, "Array expected, got " . gettype($actual));
+
+        foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, $actual, "Expected array to contain {$key}");
+        }
+    }
+
+    public function provideForTestCreateCustomer(): array
+    {
+        return [
+            //route phone     message          sender  bypasscode
+            [
+                "Chidi",
+                '08060000000',
+                "675543987",
+                '{"D":{"details":[
+                {"customerphone":"08060000000","customername":"Chidi","catid":"675543987","status":"successful"}
+                ]}}',
+                ['customerphone', 'customername', 'catid', 'status']
+            ],
+            [
+                "Samuel",
+                '08060000001',
+                "675543987",
+                '{"D":{"details":[
+                {"customerphone":"08060000001","customername":"Samuel","catid":"675543876",
+                "status":"error-customerphone-exists-in-category"}
+                ]}}',
+                ['customerphone', 'customername', 'catid', 'status']
+            ],
+            [
+                "Grace",
+                '08060000002',
+                "675543987",
+                '{"D":{"details":[{"status":"customerphone-not-exists"}]}}',
+                ['status']
+            ]
+        ];
+    }
+
+
+    /**
+     * @dataProvider provideForTestRemoveCustomer
+     */
+    public function testRemoveCustomer(
+        string $customerPhone,
+        string $categoryID,
+        string $response,
+        array $keys = []
+    )
+    {
+        $this->http->expects($this->any())
+            ->method('get')
+            ->with('/removecustomer/', [
+                Param::CUSTOMER_PHONE => $customerPhone,
+                Param::CATEGORY_ID => $categoryID,
+            ])
+            ->willReturn($this->getMockResponse($response));
+
+        $actual = $this->client->removeCustomer($customerPhone, $categoryID);
+        $this->assertIsArray($actual, "Array expected, got " . gettype($actual));
+
+        foreach ($keys as $key) {
+            $this->assertArrayHasKey($key, $actual, "Expected array to contain {$key}");
+        }
+    }
+
+    public function provideForTestRemoveCustomer(): array
+    {
+        return [
+            //route phone     message          sender  bypasscode
+            [
+                '08060000000',
+                "675543987",
+                '{"D":{"details":[
+                {"customerphone":"08060000000","customername":"Chidi","catid":"675543987","status":"successful"}
+                ]}}',
+                ['customerphone', 'customername', 'catid', 'status']
+            ],
+            [
+                '08060000001',
+                "675543987",
+                '{"D":{"details":[
+                {"customerphone":"08060000001","customername":"Samuel","catid":"675543876",
+                "status":"error-customerphone-does-not-exists-in-category"}
+                ]}}',
+                ['customerphone', 'customername', 'catid', 'status']
+            ],
+            [
+                '08060000002',
+                "675543987",
+                '{"D":{"details":[{"status":"customerphone-not-exists"}]}}',
+                ['status']
+            ]
+        ];
+    }
+
 
     public function testSendSMSErrorCase()
     {
