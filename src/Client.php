@@ -110,11 +110,12 @@ class Client
     }
 
     /**
-     * add customer to category list
+     * add customer to category list.
      *
      * @param string $customerName
      * @param string $customerPhone
      * @param $categoryID
+     *
      * @return array
      */
     public function createCustomer(string $customerName, string $customerPhone, string $categoryID): array
@@ -146,11 +147,12 @@ class Client
     }
 
     /**
-     * Get delivery report for an SMS transaction
+     * Get delivery report for an SMS transaction.
      *
      * @param string $reference
      * @param $req
      * @param $used_route
+     *
      * @return array
      */
     public function getDeliveryReport(string $reference, $req, $used_route)
